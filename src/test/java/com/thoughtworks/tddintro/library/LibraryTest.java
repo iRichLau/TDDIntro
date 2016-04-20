@@ -64,6 +64,14 @@ public class LibraryTest {
 
         when(reader.readLine()).thenReturn("1", "2");
         // implement me
+
+        books.add(reader.readLine());
+        books.add(reader.readLine());
+
+        library.listBooks();
+
+        verify(printStream).println("1");
+        verify(printStream).println("2");
     }
 
     /*
