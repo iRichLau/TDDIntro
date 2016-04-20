@@ -19,6 +19,7 @@ public class LibraryTest {
     private PrintStream printStream;
     private DateTimeFormatter dateTimeFormatter;
     private Library library;
+    private DateTime time;
 
     /*
 
@@ -32,6 +33,7 @@ public class LibraryTest {
         printStream = mock(PrintStream.class);
         dateTimeFormatter = mock(DateTimeFormatter.class);
         library = new Library(books, printStream, dateTimeFormatter);
+        time = new DateTime();
     }
 
 
@@ -84,11 +86,6 @@ public class LibraryTest {
     // This one is done for you
     @Test
     public void shouldWelcomeUser() {
-        List<String> books = new ArrayList<>();
-        PrintStream printStream = mock(PrintStream.class);
-        DateTimeFormatter dateTimeFormatter = mock(DateTimeFormatter.class);
-        Library library = new Library(books, printStream, dateTimeFormatter);
-
         // We don't need to mock DateTime because it is a value object
         // We can't mock it because it is a final class
         DateTime time = new DateTime();
@@ -100,16 +97,11 @@ public class LibraryTest {
 
     @Test
     public void shouldDisplayFormattedTimeWhenFormattedTimeIsAnEmptyString() {
-        List<String> books = new ArrayList<>();
-        PrintStream printStream = mock(PrintStream.class);
-        DateTime time = new DateTime();
-        DateTimeFormatter dateTimeFormatter = mock(DateTimeFormatter.class);
-
         when(dateTimeFormatter.print(time)).thenReturn("");
 
-        Library library = new Library(books, printStream, dateTimeFormatter);
-
         library.welcome(time);
+
+        verify(printStream).println("Welcome to the library! The current time is ");
 
         // add a verify here
     }
@@ -119,5 +111,11 @@ public class LibraryTest {
 
         // implement me
         // then move common test variables into a setup method
+
+        when(dateTimeFormatter.print(time)).thenReturn("2016-04-20 15:14:13");
+
+        library.welcome(time);
+
+        verify(printStream).println("Welcome to the library! The current time is 2016-04-20 15:14:13");
     }
 }
