@@ -48,4 +48,9 @@ public class FactorialTests {
     public void shouldThrowIllegalArgumentExceptionWhenNumberIsNegative(){
         factorial.compute(-1);
     }
+
+    @Test
+    public void shouldReturnTwentyFourWhenNumberIsFour() {
+        assertThat(factorial.compute(4), is(24));
+    }
 }
